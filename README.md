@@ -47,6 +47,10 @@ examples/        agent loops with and without a framework
 docs/            design, task list, decision records
 ```
 
+## Operations
+
+This project is run as a service, testnet first. Plan, health targets, and hard rules: [docs/operations.md](docs/operations.md).
+
 ## How this project is developed
 
 Most changes are written by coding agents and reviewed by a human.
