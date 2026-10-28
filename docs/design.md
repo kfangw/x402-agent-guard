@@ -25,7 +25,7 @@ LLM ──tool call──▶ MCP tool / agent loop ──PaymentRequest──▶
 
 | Module | What | Status |
 |---|---|---|
-| M1 | MCP server exposing guarded payment tools; agent loop examples (no framework, LangGraph) | MCP server on fake backend; examples todo |
+| M1 | MCP server exposing guarded payment tools; agent loop examples (no framework, LangGraph) | MCP server on fake backend; plain loop done; LangGraph todo |
 | M2 | Policy: per-call cap, rolling budget, allowlist, approval threshold, per-agent policies; later, stopping one agent among many | basic done; stop planned (research-derived) |
 | M3 | Exposure evaluation: scenario suite, run an agent, score money at risk; OpenTelemetry traces | planned (research-derived) |
 | M4 | Settlement verification: sample-check paid results, bonds and sanctions | planned (research-derived) |

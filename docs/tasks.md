@@ -8,7 +8,7 @@ Agents pick the first `todo` task whose dependencies are `done`. Keep tasks smal
 | ID | Task | Depends | Status |
 |---|---|---|---|
 | T-001 | Scaffold: policy engine, guard, fake backend, MCP server, CI | | done |
-| T-002 | `examples/raw_agent_loop.py`: agent loop with plain LLM API tool calling, no framework. Provider-agnostic interface; a scripted fake model for tests | T-001 | todo |
+| T-002 | `examples/raw_agent_loop.py`: agent loop with plain LLM API tool calling, no framework. Provider-agnostic interface; a scripted fake model for tests | T-001 | done |
 | T-003 | HTTP backend for an x402 payment gateway (`gateway.py`). Config from env. Tests use a mocked transport | T-001 | todo |
 | T-004 | Persist spend history (SQLite) so budgets survive restarts | T-001 | todo |
 | T-005 | Approval flow: `needs_approval` returns a pending id; a separate `approve(id)` path pays. MCP tool for listing pending payments | T-001 | todo |
@@ -39,3 +39,4 @@ Each lands with its own design note in `docs/` that explains the mechanism witho
 
 - 2026-10-28 T-001 done: scaffold with tested policy engine and guard.
 - 2026-10-28 Makefile runs ruff and pytest via `python -m` so `make check` uses the installed package.
+- 2026-10-28 T-002 done: `agent.run_agent` loop with a provider-agnostic `Model` protocol and `ScriptedModel`; shared `tools.PaymentTools` used by the loop and the MCP server; runnable example.

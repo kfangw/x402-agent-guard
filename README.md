@@ -40,6 +40,8 @@ Amounts are integers in the asset's smallest unit (USDC: 6 decimals).
 src/x402_agent_guard/
   policy/        policy engine (M2: limits, approval threshold)
   guard.py       the only path from a tool call to a payment
+  tools.py       check_payment / pay tools shared by every front end
+  agent.py       agent loop without a framework; Model protocol, ScriptedModel
   gateway.py     payment backend interface and a fake backend
   mcp_server.py  MCP tools: check_payment, pay (M1)
   eval/          exposure evaluation (M3, planned)

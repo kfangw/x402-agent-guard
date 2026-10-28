@@ -6,11 +6,10 @@ The server uses a FakeBackend and a demo policy until T-003 lands.
 
 from __future__ import annotations
 
-import time
-
 from x402_agent_guard.gateway import FakeBackend
 from x402_agent_guard.guard import Guard
-from x402_agent_guard.policy import PaymentRequest, Policy, PolicyEngine
+from x402_agent_guard.policy import Policy, PolicyEngine
+from x402_agent_guard.tools import PaymentTools
 
 DEMO_AGENT = "demo-agent"
 USDC = "USDC"
@@ -24,25 +23,18 @@ def build_guard() -> Guard:
 def create_server(guard: Guard | None = None):
     from mcp.server.fastmcp import FastMCP
 
-    guard = guard or build_guard()
+    tools = PaymentTools(guard or build_guard(), DEMO_AGENT, USDC)
     server = FastMCP("x402-agent-guard")
 
     @server.tool()
     def check_payment(payee: str, amount: int, resource: str = "") -> dict:
         """Check whether a payment would be allowed. Amount is in USDC base units (6 decimals)."""
-        req = PaymentRequest(DEMO_AGENT, payee, amount, USDC, resource, time.time())
-        d = guard.engine.evaluate(req)
-        return {"outcome": d.outcome.value, "reason": d.reason}
+        return tools.check_payment(payee, amount, resource)
 
     @server.tool()
     def pay(payee: str, amount: int, resource: str = "") -> dict:
         """Pay if policy allows. Payments that need approval are refused here; a human approves."""
-        req = PaymentRequest(DEMO_AGENT, payee, amount, USDC, resource, time.time())
-        result = guard.request_payment(req)
-        out = {"outcome": result.decision.outcome.value, "reason": result.decision.reason}
-        if result.receipt:
-            out["tx_ref"] = result.receipt.tx_ref
-        return out
+        return tools.pay(payee, amount, resource)
 
     return server
 
