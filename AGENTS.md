@@ -32,6 +32,9 @@ Everything an agent needs to work here must be in this repository, in plain file
 ## Commits
 
 - One task per commit when possible. Message: `T-xxx: what changed` in English, imperative mood.
+- The commit author is the maintainer. Credit the agent with a trailer that names the tool and model, e.g.
+  `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` or `Co-Authored-By: Codex (<model>) <noreply@openai.com>`.
+  Use the model that actually did the work. Human-only commits have no trailer.
 - Do not rewrite published history. No force push to `main`.
 
 ## Self-contained
