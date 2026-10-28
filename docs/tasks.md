@@ -38,3 +38,4 @@ Each lands with its own design note in `docs/` that explains the mechanism witho
 ## Log
 
 - 2026-10-28 T-001 done: scaffold with tested policy engine and guard.
+- 2026-10-28 Makefile runs ruff and pytest via `python -m` so `make check` uses the installed package.
