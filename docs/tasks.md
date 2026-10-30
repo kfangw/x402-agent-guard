@@ -27,6 +27,10 @@ Agents pick the first `todo` task whose dependencies are `done`. Keep tasks smal
 | T-014 | Spec Q&A (M5): index public x402 and agent-payment specs; the demo agent can answer questions about them with citations | T-002 | todo |
 | T-015 | Retrieval eval for spec Q&A: labeled question set, recall@k, citation correctness; runs in `make check` with a fixed index | T-014, T-011 | todo |
 | T-016 | Agent SDK example: the T-002 agent on one agent SDK (OpenAI Agents SDK or Claude Agent SDK), paying only through the guard | T-002 | todo |
+| T-017 | Eval report: per run, a safety score (wrong actions that passed the guard) and a usefulness score (correct tasks completed); for each failure, the scenario, the trace, and a suggested fix (e.g. a guard mode or policy change) | T-010, T-011 | todo |
+| T-018 | Eval CI mode: exit code on threshold, results saved as JSON, diff against a saved baseline; example GitHub Actions workflow | T-017 | todo |
+| T-019 | Custom scenarios guide: `docs/eval-scenarios.md` with the file format, two worked examples (a payment task and a non-payment tool task), and a validator command | T-011 | todo |
+| T-029 | Agent connector interface: run the eval against any agent given as a Python callable or reached over MCP; adapters for the raw loop, LangGraph, and the agent SDK; a fake agent for tests | T-011, T-016 | todo |
 
 ## Operate (see `docs/operations.md`)
 
@@ -59,10 +63,11 @@ Each lands with its own design note in `docs/` that explains the mechanism witho
 | T-025 | Eval: value-source scenarios. The amount comes from a guard reply, a retrieved document (stale price list or partial policy text, through the T-014 retrieval), or the user's request. Guard option to flag amounts whose only source is retrieved text | T-014, T-024 | hold | todo |
 | T-026 | Framework comparison: run T-024 and T-025 on the raw loop (T-002), LangGraph (T-007), and an agent SDK (T-016), with a guard middleware for each; report how each framework returns tool errors and retries | T-007, T-016, T-024 | hold | todo |
 | T-027 | Online comparison in the hosted demo: assign a rejection mode per session with a visible notice, within the T-040 caps; metrics for wrong actions and completion | T-023, T-037, T-040 | hold | todo |
-| T-028 | Public eval kit: package the scenarios and runner (extra `eval`) so others can run their agents and share results | T-024 | hold | todo |
+| T-028 | Public eval kit: package the scenarios, runner, connector (T-029), report (T-017), and CI mode (T-018) as extra `eval`. The README's first screen states the scope and limits: it measures wrong actions on payment and tool calls, not overall agent quality; passing fixed scenarios is a lower bound, not a proof of safety against adaptive attackers; repeated runs cost model calls on the user's account | T-017, T-018, T-019, T-024, T-029 | hold | todo |
 
 ## Log
 
 - 2026-10-28 T-001 done: scaffold with tested policy engine and guard.
 - 2026-10-28 Added operations track (T-030 to T-039), context management (T-013), and spec Q&A (T-014).
 - 2026-10-30 Added retrieval eval (T-015), agent SDK example (T-016), demo LLM cost controls (T-040), and the rejection-feedback study (T-023 to T-028, start set by the maintainer). Decision 0004.
+- 2026-10-30 Added eval kit user requirements: report (T-017), CI mode (T-018), custom scenarios guide (T-019), agent connector (T-029); T-028 now packages them with a scope and limits statement.
