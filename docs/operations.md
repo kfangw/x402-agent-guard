@@ -46,6 +46,10 @@ a small model is well under one cent per request; a large model can be several c
 small model by default, sign-in, per-user and global daily LLM spend caps, and new runs stop at the cap.
 Developers who connect their own agents to the hosted guard pay for their own model calls.
 
+Phase 1 runs on free tiers (decision 0005): Cloud Run for the guard and the demo paid API, the
+x402.org or CDP facilitator on Base Sepolia, faucet funds, and a free model API for the demo agent.
+Because Cloud Run scales to zero, the phase 1 latency target applies to warm instances.
+
 ## Runbook and incidents
 
 - `docs/runbook.md`: how to deploy, roll back, rotate keys, freeze all payments.

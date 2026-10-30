@@ -41,7 +41,7 @@ Agents pick the first `todo` task whose dependencies are `done`. Keep tasks smal
 | T-032 | Freeze switch: one config flag or admin call stops all payments; tested | T-031 | todo |
 | T-033 | Testnet backend: pay on Base Sepolia through an x402 facilitator | T-003 | todo |
 | T-034 | Demo paid API behind an x402 paywall (seller side) | T-033 | todo |
-| T-035 | Deploy to a host with config in the repo (one command deploy and rollback); `docs/runbook.md` | T-030, T-032 | todo |
+| T-035 | Deploy to Cloud Run with config in the repo (one command deploy and rollback, budget alert, re-check free terms per decision 0005); `docs/runbook.md` | T-030, T-032 | todo |
 | T-036 | Metrics and alerts: decisions, spend vs. cap, failures, latency (OpenTelemetry) | T-010, T-035 | todo |
 | T-037 | Public demo agent on testnet with a daily budget and abuse limits. Small model, sign-in, per-user and global daily LLM spend caps (decision 0004) | T-007, T-034, T-036 | todo |
 | T-038 | Kubernetes manifest for self-hosting | T-030 | todo |
@@ -71,3 +71,4 @@ Each lands with its own design note in `docs/` that explains the mechanism witho
 - 2026-10-28 Added operations track (T-030 to T-039), context management (T-013), and spec Q&A (T-014).
 - 2026-10-30 Added retrieval eval (T-015), agent SDK example (T-016), demo LLM cost controls (T-040), and the rejection-feedback study (T-023 to T-028, start set by the maintainer). Decision 0004.
 - 2026-10-30 Added eval kit user requirements: report (T-017), CI mode (T-018), custom scenarios guide (T-019), agent connector (T-029); T-028 now packages them with a scope and limits statement.
+- 2026-10-30 Decision 0005: phase 1 hosting on free tiers; T-035 targets Cloud Run.
