@@ -25,6 +25,8 @@ Agents pick the first `todo` task whose dependencies are `done`. Keep tasks smal
 | T-012 | First scenario set: injected instructions in tool results asking the agent to pay | T-011 | todo |
 | T-013 | Context management in the agent loop: trim and summarize long histories within a token budget; tests with the fake model | T-002 | todo |
 | T-014 | Spec Q&A (M5): index public x402 and agent-payment specs; the demo agent can answer questions about them with citations | T-002 | todo |
+| T-015 | Retrieval eval for spec Q&A: labeled question set, recall@k, citation correctness; runs in `make check` with a fixed index | T-014, T-011 | todo |
+| T-016 | Agent SDK example: the T-002 agent on one agent SDK (OpenAI Agents SDK or Claude Agent SDK), paying only through the guard | T-002 | todo |
 
 ## Operate (see `docs/operations.md`)
 
@@ -37,9 +39,10 @@ Agents pick the first `todo` task whose dependencies are `done`. Keep tasks smal
 | T-034 | Demo paid API behind an x402 paywall (seller side) | T-033 | todo |
 | T-035 | Deploy to a host with config in the repo (one command deploy and rollback); `docs/runbook.md` | T-030, T-032 | todo |
 | T-036 | Metrics and alerts: decisions, spend vs. cap, failures, latency (OpenTelemetry) | T-010, T-035 | todo |
-| T-037 | Public demo agent on testnet with a daily budget and abuse limits | T-007, T-034, T-036 | todo |
+| T-037 | Public demo agent on testnet with a daily budget and abuse limits. Small model, sign-in, per-user and global daily LLM spend caps (decision 0004) | T-007, T-034, T-036 | todo |
 | T-038 | Kubernetes manifest for self-hosting | T-030 | todo |
 | T-039 | Mainnet with a capped operator wallet | T-037 | hold (needs maintainer decision, see decision 0003) |
+| T-040 | LLM cost controls for the demo agent: model and caps in config, stop new runs at the cap, cost per request in metrics | T-037 | todo |
 
 ## Research-derived (engineering of the maintainer's agent-payment research)
 
@@ -51,8 +54,15 @@ Each lands with its own design note in `docs/` that explains the mechanism witho
 | T-020 | Stop one agent among several sharing one account without stopping the others; stop must hold against replay and re-registration | T-004 | hold | todo |
 | T-021 | Exposure metrics: separate observed loss, executed amount, and worst-case exposure; scenario families | T-011 | hold | todo |
 | T-022 | Sampled verification of paid results: verify a fraction of responses, seller bond, sanctions | T-003 | hold | todo |
+| T-023 | Rejection feedback modes: when the guard denies a payment, it can reply with no hint, with the admitted value, with a retry nudge, or hand off to a human. Mode set per policy. Design note `docs/rejection-feedback.md` | T-005 | hold | todo |
+| T-024 | Eval: rejection-feedback scenarios. Same task under each mode of T-023; score wrong actions that pass the guard and correct payments completed | T-011, T-023 | hold | todo |
+| T-025 | Eval: value-source scenarios. The amount comes from a guard reply, a retrieved document (stale price list or partial policy text, through the T-014 retrieval), or the user's request. Guard option to flag amounts whose only source is retrieved text | T-014, T-024 | hold | todo |
+| T-026 | Framework comparison: run T-024 and T-025 on the raw loop (T-002), LangGraph (T-007), and an agent SDK (T-016), with a guard middleware for each; report how each framework returns tool errors and retries | T-007, T-016, T-024 | hold | todo |
+| T-027 | Online comparison in the hosted demo: assign a rejection mode per session with a visible notice, within the T-040 caps; metrics for wrong actions and completion | T-023, T-037, T-040 | hold | todo |
+| T-028 | Public eval kit: package the scenarios and runner (extra `eval`) so others can run their agents and share results | T-024 | hold | todo |
 
 ## Log
 
 - 2026-10-28 T-001 done: scaffold with tested policy engine and guard.
 - 2026-10-28 Added operations track (T-030 to T-039), context management (T-013), and spec Q&A (T-014).
+- 2026-10-30 Added retrieval eval (T-015), agent SDK example (T-016), demo LLM cost controls (T-040), and the rejection-feedback study (T-023 to T-028, start set by the maintainer). Decision 0004.

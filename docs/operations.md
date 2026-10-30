@@ -9,7 +9,7 @@ This file says what runs, where, how we know it is healthy, and what we will not
 |---|---|---|
 | Hosted guard (remote MCP) | The MCP server over HTTP. Clients authenticate with an API key. Each key maps to a policy | Developers who connect their agents |
 | Demo paid API (seller side) | A small API behind an x402 paywall that we run | Gives agents something real to pay for; produces payment traffic |
-| Demo agent | A public agent that uses the hosted guard to pay the demo API, with a daily budget | Visitors who want to see it work |
+| Demo agent | A public agent that uses the hosted guard to pay the demo API, with a daily budget. Runs a small model behind sign-in with daily LLM spend caps (decision 0004) | Visitors who want to see it work |
 | Container image | The same guard, self-hosted | Teams who want to run it themselves with their own keys |
 
 ## Phases
@@ -37,6 +37,14 @@ This file says what runs, where, how we know it is healthy, and what we will not
 | Spend vs. cap | Alert at 80% of the daily cap |
 
 Metrics: requests, decisions by outcome, amount paid, payment failures, latency. Exported with OpenTelemetry.
+
+## Cost
+
+The hosted guard calls no LLM; it costs only hosting. The demo agent calls a model several times per
+request (plan, tool calls, reading a denial, answer), so its cost grows with traffic. Rough figures:
+a small model is well under one cent per request; a large model can be several cents. Controls (T-040):
+small model by default, sign-in, per-user and global daily LLM spend caps, and new runs stop at the cap.
+Developers who connect their own agents to the hosted guard pay for their own model calls.
 
 ## Runbook and incidents
 
